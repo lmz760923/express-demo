@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <title>login</title>
+    <script>
+    function registerEvents(){
+    	document.getElementById("frmlogin").addEventListener('submit',function login(ev){
+        	let fd=new FormData(document.getElementById("frmlogin"));
+        	let xhr=new XMLHttpRequest();
+        	xhr.open('POST','login',true);
+        	
+        	xhr.onload=function(){
+        		if (xhr.status===200) {
+     		        		
+        		window.parent.location.href='index';
+        		}
+        	}
+        	xhr.send(fd);
+        	ev.preventDefault();
+        	
+        }
+        );
+    }
+    
+    
+    window.addEventListener('load',(event)=>registerEvents(event));
+    
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        input,
+        button {
+            background: transparent;
+            border: 0;
+            outline: none;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(#282a36, #44475a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            color: #bd93f9;
+        }
+
+        .auth-container {
+            width: 400px;
+            height: 364px;
+            background-color: #21222c;
+            margin: 100px auto;
+            border-radius: 10px;
+            box-shadow: 0 15px 25px 0 rgba(0, 0, 0, .6);
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            color: #bd93f9;
+            margin-bottom: 30px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .input-group {
+            height: 45px;
+            border-bottom: 1px solid #fff;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .input-group input {
+            width: 100%;
+            height: 100%;
+            color: #fff;
+            padding-top: 20px;
+            box-sizing: border-box;
+        }
+
+        .input-group input:focus + label,
+        .input-group input:valid + label {
+            top: 0px;
+            font-size: 12px;
+        }
+
+        .input-group label {
+            position: absolute;
+            left: 0;
+            top: 12px;
+            transition: all 0.5s linear;
+        }
+
+        .auth-button {
+            padding: 10px 20px;
+            margin-top: 30px;
+            color: #bd93f9;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            left: 35%;
+        }
+
+        .auth-button:hover {
+            border-radius: 5px;
+            color: #fff;
+            background: #bd93f9;
+            box-shadow: 0 0 5px 0 #bd93f9, 0 0 25px 0 #bd93f9, 0 0 50px 0 #bd93f9, 0 0 100px 0 #bd93f9;
+            transition: all 1s linear;
+        }
+
+        .auth-button > span {
+            position: absolute;
+        }
+
+        .auth-button > span:nth-child(1) {
+            width: 100%;
+            height: 2px;
+            background: -webkit-linear-gradient(left, transparent, #bd93f9);
+            left: -100%;
+            top: 0px;
+            animation: line1 1s linear infinite;
+        }
+
+        @keyframes line1 {
+
+            50%,
+            100% {
+                left: 100%;
+            }
+        }
+
+        .auth-button > span:nth-child(2) {
+            width: 2px;
+            height: 100%;
+            background: -webkit-linear-gradient(top, transparent, #bd93f9);
+            right: 0px;
+            top: -100%;
+            animation: line2 1s 0.25s linear infinite;
+        }
+
+        @keyframes line2 {
+
+            50%,
+            100% {
+                top: 100%;
+            }
+        }
+
+        .auth-button > span:nth-child(3) {
+            width: 100%;
+            height: 2px;
+            background: -webkit-linear-gradient(left, #bd93f9, transparent);
+            left: 100%;
+            bottom: 0px;
+            animation: line3 1s 0.75s linear infinite;
+        }
+
+        @keyframes line3 {
+
+            50%,
+            100% {
+                left: -100%;
+            }
+        }
+
+        .auth-button > span:nth-child(4) {
+            width: 2px;
+            height: 100%;
+            background: -webkit-linear-gradient(top, transparent, #bd93f9);
+            left: 0px;
+            top: 100%;
+            animation: line4 1s 1s linear infinite;
+        }
+
+        @keyframes line4 {
+
+            50%,
+            100% {
+                top: -100%;
+            }
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+        <h2>请登录</h2>
+        <form action="" id="frmlogin">
+            <div class="input-group"> <input type="text" required name="user"> <label for="">用户名</label> </div>
+            <div class="input-group"> <input type="password" required name="password"> <label for="">密码</label> </div>
+            <button class="auth-button" id="login">提交 <span></span> <span></span> <span></span> <span></span> </button>
+        </form>
+    </div>
+</body>
+
+</html>

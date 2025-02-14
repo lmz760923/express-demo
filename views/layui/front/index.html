@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+ 
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="Cache-Control" content="no-cache">
+    <title>前台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/layui/css/layui.css}" rel="stylesheet" />
+</head>
+<style>
+* {
+  box-sizing: border-box;
+  margin:0;
+  padding:0;
+}
+
+body {
+  font-family: Arial;
+  padding: 0px;
+  background: #f1f1f1;
+}
+
+/* 页眉/Blog 标题 */
+.header {
+  padding: 0px;
+  text-align: center;
+  background: #16baaa;
+  margin: 1px;
+  height:20%;
+  
+}
+
+.header h1 {
+  font-size: 50px;
+}
+
+/* 设置上导航栏的样式 */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+/* 设置 topnav 链接的样式 */
+.topnav a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 4px 6px;
+  text-decoration: none;
+}
+
+/* 改变鼠标悬停时的颜色 */
+.topnav a:hover {
+  background-color: rgba(255,0,0,0.8);
+  color: blue;
+  border-radius:50%;
+  transition:all 0.5s;
+}
+
+/* 创建两个不相等的彼此并排的浮动列 */
+/* 左列 */
+.leftcolumn {   
+  width: 600px;
+  background-color: #f1f1f1;
+  padding-left: 5px;
+}
+
+/* 右列 */
+.rightcolumn {
+  flex-grow: 1;
+  
+  background-color: #f1f1f1;
+  padding-left: 5px;
+}
+
+/* 伪图像 */
+.fakeimg {
+  background-color: #f1f1f1;
+  width: 100%;
+  padding: 2px;
+}
+
+/* 为文章添加卡片效果 */
+.card {
+  background-color: white;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.row {
+  display: flex;
+}
+
+/* 页脚 */
+.footer {
+  padding: 5px;
+  text-align: center;
+  background: #16baaa;
+  margin-top: 5px;
+  
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.carsoule {
+	width:100%;
+	height:100%;
+}
+
+img{
+width: 600px;
+height: 300px;
+object-fit: fill;
+}
+
+/* 响应式布局 - 当屏幕的宽度小于 800 像素时，使两列堆叠而不是并排 */
+@media screen and (max-width: 800px) {
+  .leftcolumn, .rightcolumn {   
+    width: 100%;
+    padding: 0;
+  }
+  
+  img{
+	width: 100%;
+	height: 200px;
+	object-fit: fill;
+}
+  
+  .row {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+}
+
+
+@media screen and (max-width: 400px) {
+  .topnav a {
+    float: none;
+    width: 100%;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <div class="layui-carousel" id="ID-carousel-demo-1">
+  <div carousel-item>
+    <div th:each="item:${carousel}">
+    	<image th:src="'/images'+${item.href}" class="carsoule" object-fit:"fill"/>
+    </div>
+  </div>
+</div> 
+</div>
+
+<div class="topnav">
+  
+  <a href="/manage/index" style="float:right" target="blank">
+  后台
+  </a>
+</div>
+
+<div class="row">
+  <div class="leftcolumn">
+	
+    <div th:each="item:${categories}" class="card">
+      <h2 th:text=${item.description}>category.description</h2>
+      <h5 th:text=${item.created_at}>category.created_at</h5>
+      <div class="fakeimg">
+	  <a th:href="'products/'+${item.id}" target="blankd">
+	  <img th:src="'/images'+${item.href}"/>
+	  </a>
+	  </div>
+    </div>
+
+  </div>
+
+  <div class="rightcolumn">
+    <div class="card" th:utext="${about}">
+    
+    </div>
+    <div class="card" th:utext="${about_content}">
+    
+    </div>
+    <div class="card" th:utext="${flowme}">
+    
+    </div>
+    <div class="card" th:utext="${flowme_content}">
+    
+    </div>div class="card">
+
+
+  </div>
+</div>
+ 
+<div class="footer" th:utext="'Copyright©'+${company}">
+</div>
+
+
+<script th:src="@{/layui/layui.js}"></script>
+<script>
+layui.use(function(){
+  var carousel = layui.carousel;
+  // 渲染 - 图片轮播
+  carousel.render({
+	    elem: '#ID-carousel-demo-1',
+	    width: '100%',
+	  });
+});
+
+</script>
+
+</body>
+</html>
+
