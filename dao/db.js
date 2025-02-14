@@ -6,6 +6,5 @@ user: 'root',
 password: 'root123456',
 database: 'mydata'
 });
-
+console.log('mysql initialize completed');
 module.exports = pool;
-/**/

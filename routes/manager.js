@@ -27,21 +27,52 @@ router.get('/users',function(req,res){
 
 router.get('/userlist',function(req,res){
 	// 执行查询
+	var mydata;
 	db.query('SELECT * FROM users', (err, results, fields) => {
 	if (err) {
 	console.error('Error executing query:', err);
 	return;
 	}
-	console.log('Query results:', results);
-	});
+		 
 	res.json(
 	{code:'0',
 	 msg:'success',
-	 count:1,
+	 count:results.length,
 	 totalRow:{checkin:1,era:{tang:1,song:0,xian:0}},
-	 data:[{id:1001,name:'lmz',password:'password',email:'lmz@163.com',email_verified_at:'',remember_token:'',created_at:'2025-01-01 16:01:01',updated_at:''}]
+	 data:results
 	 }
 	);
+	
+	
+	
+	});
+
+
 })
+
+router.post('/adduser',function(req,res){
+	db.query('insert into users(name,email,password) values(?,?,?)',[req.body.username,req.body.email,req.body.reg_password], (err, results) => {
+	if (err) {
+	console.error('Error executing query:', err);
+	return;
+	}
+	
+	});
+	res.json({msg:1});
+});
+
+router.post('/userdel',(req,res)=>{
+	db.query('delete from users where id=?',[req.body.userid],(err,results)=>{
+		if (err) {
+			console.error('Error executing query:',err);
+			return;
+		}
+	res.json({msg:results});
+	});
+});
+
+router.get('/carousel',(req,res)=>{
+	res.render('layui/manage/carousel');
+});
 
 module.exports = router;
