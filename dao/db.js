@@ -8,3 +8,4 @@ database: 'mydata'
 });
 
 module.exports = pool;
+/**/
