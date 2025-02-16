@@ -4,9 +4,18 @@ var session = require('express-session');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var multer=require('multer');
 var manageRouter = require('./routes/manager');
+const frontRouter=require('./routes/front');
+const fs  = require('fs');
+const db=require('./dao/db');
 
 var app = express();
+
+const uploadDir=path.join(__dirname,'uploads');
+if (!fs.existsSync(uploadDir)){fs.mkdirSync(uploadDir,{recursive:true})}
+
+app.use('/uploads',express.static(uploadDir));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/manage',manageRouter);
+app.use('/',frontRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
