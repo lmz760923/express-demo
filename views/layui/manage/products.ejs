@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>产品维护</title>
@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link th:href="@{/layui/css/layui.css}" rel="stylesheet">
+  <link href="/layui/css/layui.css" rel="stylesheet">
   <style>
    .demo-login-container{width: 320px; margin: 21px auto 0;}
    .demo-login-other .layui-icon{position: relative; display: inline-block; margin: 0 2px; top: 2px; font-size: 26px;}
@@ -65,7 +65,14 @@
 				<select id="category" name="category" lay-search="true">
 					<option value="">请选择产品类别</option>
 				
-					<option th:each="item:${categories}" th:value="${item.id}" th:text="${item.category}"></option>
+          <%for (item in categories){%>
+
+            <option value="<%=categories[item].id%>">
+              <%=categories[item].category%>
+
+            </option> 
+          <%}
+          %>
 
 				</select>
 				
@@ -109,8 +116,8 @@
 				</form>
 </div>
  
-<script th:src="@{/layui/layui.js}"></script>
-<script >
+<script src="/layui/layui.js"></script>
+<script>
 
 layui.use(['table', 'dropdown'], function(){
   let table = layui.table;
@@ -182,7 +189,7 @@ layui.use(['table', 'dropdown'], function(){
 							let file=layui.$("#file").val();
 					        if (file=='') {layui.$("#file").focus();return false;}
 							
-							formData.append('category',category);
+
 							
 							$.ajax({
 								
