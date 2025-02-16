@@ -67,9 +67,14 @@ router.get('/login', function(req, res) {
   res.render('layui/manage/login');
 });
 
-router.post('/login', function(req, res) {
-  req.session.user='lmz';
-  res.json({ message: 'Hello, World!', timestamp: new Date() });
+router.post('/login',upload.none(), function(req, res) {
+  db.query('select * from users where name=? and password=?',[req.body.user,req.body.password],(err,results)=>{
+	if (err||results.length<=0){res.json({message:'error'});return;}
+
+	req.session.user=req.body.user;
+  	res.json({ message: 'success'});
+  });
+  
 });
 
 router.post('/logout',function(req,res){

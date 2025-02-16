@@ -16,10 +16,13 @@
         	xhr.open('POST','login',true);
         	
         	xhr.onload=function(){
-        		if (xhr.status===200) {
-     		        		
+        		if (JSON.parse(xhr.response).message==='success') {
+                    		
         		window.parent.location.href='index';
         		}
+                else {
+                    alert(JSON.parse(xhr.response).message);
+                }
         	}
         	xhr.send(fd);
         	ev.preventDefault();
