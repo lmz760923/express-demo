@@ -44,6 +44,7 @@ router.get('/index', function(req, res) {
   });
 
   router.get('/products/:id',(req,res)=>{
+	
     res.render('layui/front/products',{cateid:req.params.id});
   });
 
