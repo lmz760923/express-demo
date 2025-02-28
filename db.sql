@@ -57,3 +57,10 @@ CREATE TABLE `users` (
 -- 创建索引优化查询性能‌:ml-citation{ref="1,2" data="citationList"}
 CREATE INDEX idx_products_category ON products(category);
 CREATE INDEX idx_users_email ON users(email);
+
+INSERT INTO options(id, created_at, updated_at, name, content) VALUES (3, NULL, NULL, 'company', '<b>惠州市牛皮发展有限公司</b>');
+INSERT INTO options(id, created_at, updated_at, name, content) VALUES (4, NULL, NULL, 'about', '<h1>关于我们</h1>');
+INSERT INTO options(id, created_at, updated_at, name, content) VALUES (5, NULL, NULL, 'about_content', '<h1>我们是共产主义事业的接班人</> <h1>个人简介</h1> <h2 class="ex1">咸盐月饼</h2> <h3 class="ex1">学号：**********</h3> <h3 class="ex1">班级：**********</h3> <h3 class="ex1">学院：电商与物流</h3> <h3 class="ex1">学校：<a class="cc" href="http://www.btbu.edu.cn/">北京工商大学</a></h3> <p class="ex1">这个人很懒，什么都没有留下......</p><p class="ex1">这个人很懒，什么都没有留下......</p><p class="ex1">这个人很懒，什么都没有留下......</p><p class="ex1">这个人很懒，什么都没有留下......</p><p class="ex1">这个人很懒，什么都没有留下......</p><p class="ex1">这个人很懒，什么都没有留下......</p><p class="ex1">这个人很懒，什么都没有留下......</p><p class="ex1">这个人很懒，什么都没有留下......</p><p class="ex1">这个人很懒，什么都没有留下......</p><p class="ex1">这个人很懒，什么都没有留下......</p><p class="ex1">这个人很懒，什么都没有留下......</p><p class="ex1">这个人很懒，什么都没有留下......</p><p class="ex1">这个人很懒，什么都没有留下......</p>');
+INSERT INTO options(id, created_at, updated_at, name, content) VALUES (6, NULL, NULL, 'flowme', '<h1>短片欣赏</h1>');
+INSERT INTO options(id, created_at, updated_at, name, content) VALUES (7, NULL, NULL, 'flowme_content', '<div><video width="100%" height="auto" controls autoplay="autoplay" loop><source src="/images/images/my.mp4" type="video/mp4">您的浏览器不支持Video标签。</video></div>');
+
