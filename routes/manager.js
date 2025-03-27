@@ -3,7 +3,7 @@ const router = express.Router();
 const fs=require('fs');
 const path=require('path');
 const db=require('../dao/db');
-const { fileLoader } = require('ejs');
+//const { fileLoader } = require('ejs');
 const multer=require('multer');
 
 const uploadDir=path.join(__dirname+'/../','uploads');

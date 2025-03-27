@@ -10,36 +10,40 @@ var about_content;
 var flowme;
 var flowme_content;
 var company;
-router.get('/index', function(req, res) {
-    db.query('select * from carousel',(err,results)=>{
-        carousel=results;
-        db.query('select * from categories',(err,results)=>{
-            categories=results;
-            db.query('select * from options where name="about"',(err,results)=>{
-                about=results[0].content;
-                db.query('select * from options where name="about_content"',(err,results)=>{
-                    about_content=results[0].content;
-                    db.query('select * from options where name="flowme"',(err,results)=>{
-                        flowme=results[0].content;
-                        db.query('select * from options where name="flowme_content"',(err,results)=>{
-                            flowme_content=results[0].content;
-                            db.query('select * from options where name="company"',(err,results)=>{
-                                company=results[0].content;
-                                
-                                res.render('layui/front/index',{carousel,categories,about,about_content,flowme,flowme_content,company});
-                            });
-                            
-                        });
-                        
-                    });
-                    
-                });
-                
-            });
-            
-        });
-        
-    });
+var icp;
+var isp;
+var address;
+
+async function fetch_db(sql) {
+    return new Promise(function(resolve,reject){
+        db.query(sql,(err,results)=>{
+            if (err) reject(err)
+            else resolve(results)
+        })
+    })
+}
+
+router.get('/',async function(req, res) {
+    carousel=await fetch_db('select * from carousel');
+    categories=await fetch_db('select * from categories');
+    about=await fetch_db('select content from options where name="about"');
+    about=about[0].content;
+    about_content=await fetch_db('select content from options where name="about_content"');
+    about_content=about_content[0].content;
+    flowme=await fetch_db('select content from options where name="flowme"');
+    flowme=flowme[0].content;
+    flowme_content=await fetch_db('select content from options where name="flowme_content"');
+    flowme_content=flowme_content[0].content;
+    company=await fetch_db('select content from options where name="company"');
+    company=company[0].content;
+    icp=await fetch_db('select content from options where name="icp"');
+    icp=icp[0].content;
+    isp=await fetch_db('select content from options where name="isp"');
+    isp=isp[0].content;
+    address=await fetch_db('select content from options where name="address"');
+    address=address[0].content;
+    res.render('layui/front/index',{carousel,categories,about,about_content,flowme,flowme_content,company,icp,isp,address});
+
     
   });
 
