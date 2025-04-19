@@ -3,18 +3,22 @@
     <footer>
         <div class="footer1">
             <div class="msg">
-                <a href="#">品牌动态</a>
-                <a href="#">生产经营资质</a>
-                <a href="#">企业合作</a>
-                <a href="#">发票申请</a>
-                <a href="#">平台规则</a>
-                <a href="#">帮助服务</a>
-                <a href="#">联系我们</a>
+                <a href="/">首页</a>
+               
+                <a href="productandservice">产品与服务</a>
+                <a href="news">新闻动态</a>
+
+                
+                <a href="contacts">联系我们</a>
             </div>
             <div class="tel">
                 <a href="#">
-                    <img width="30px" height="30px" src="../../../../uploads/telphone.jpeg" />
-                    <span>15627383338</span>
+                    <img  src="../../../../uploads/telphone.png" />
+                    <span>业务：15627383338</span>
+                </a>
+                <a href="#">
+                    <img  src="../../../../uploads/telphone.png" />
+                    <span>技术：15919731630</span>
                 </a>
                 
 
@@ -63,52 +67,148 @@ border: 0;
 }
 /**********footer**********/
 .xf_footer{
-height: 146px;
+
 background: #3e2d23;
 }
 .xf_footer footer{
-width: 1251px;
-height: 125px;
+width: 100%;
+
 margin: 0 auto;
 overflow: hidden;
 }
 .xf_footer footer .footer1{
 overflow: hidden;
+text-align: center;
 }
 .xf_footer footer .footer1 .msg{
-margin-top: 37px;
+display: flex;
+justify-content:space-around;
 margin-left: 8px;
-float: left;
+
 }
 .xf_footer footer .footer1 .msg >a{
 color: #fff;
-padding-left: 12px;
-padding-right: 28px;
 border-right: 1px solid #b3a59c;
 }
 footer .footer1 .msg >a:last-child{
 border: 0;
 }
-.xf_footer footer .footer1 .tel{
-float: right;
-margin-top: 37px;
-margin-left: 56px;
-}
+
 .xf_footer footer .footer1 .tel a{
 margin-right: 16px;
 color: #fff;
 }
 .xf_footer footer .footer1 .tel a img{
-float: left;
+width: 20px;
+height: 20px;
 margin-right: 3px;
 }
 .xf_footer footer .footer2{
 text-align: center;
-margin-top: 34px;
+color: #fff;
+
+}
+
+.xf_footer footer .footer2 .copyright{
+text-align: center;
+color: #fff;
+display: flex;
+justify-content:space-around;
+}
+
+
+@media screen and (max-width: 800px) {
+
+    .clear:after {
+content: "";
+display: block;
+clear: both;
+height: 0;
+visibility: hidden;
+overflow: hidden;
+}
+
+.clear {
+zoom: 1;
+}
+
+.xf_footer li {
+list-style: none;
+}
+
+.xf_footer a {
+text-decoration: none;
+cursor: pointer;
+color: #737373;
+}
+
+.xf_footer img {
+vertical-align: top;
+border: 0;
+}
+/**********footer**********/
+.xf_footer{
+
+background: #3e2d23;
+}
+.xf_footer footer{
+width: 100%;
+
+margin: 0 auto;
+overflow: hidden;
+}
+.xf_footer footer .footer1{
+overflow: hidden;
+text-align: center;
+}
+.xf_footer footer .footer1 .msg{
+display: flex;
+justify-content:space-around;
+margin-left: 8px;
+
+}
+.xf_footer footer .footer1 .msg >a{
+color: #fff;
+border-right: 1px solid #b3a59c;
+}
+footer .footer1 .msg >a:last-child{
+border: 0;
+}
+
+.xf_footer footer .footer1 .tel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.xf_footer footer .footer1 .tel a{
+margin-right: 16px;
 color: #fff;
 }
-.xf_footer footer .footer2 .copyright span{
-margin-right: 24px;
+.xf_footer footer .footer1 .tel a img{
+width: 20px;
+height: 20px;
+margin-right: 3px;
 }
+.xf_footer footer .footer2{
+text-align: center;
+color: #fff;
+
+}
+.xf_footer footer .footer2 .copyright{
+text-align: center;
+color: #fff;
+display: flex;
+flex-direction: column;
+justify-content:space-around;
+}
+
+}
+
+
+
+
+
+
 
 </style>
