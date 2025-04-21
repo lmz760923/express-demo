@@ -1,7 +1,19 @@
 <%-include('head/head')%>
 
   <div class="row">
-    <a href="manage/index" style="position: fixed;right: 0; top: 0;" target="blank">
+    <div class="nav">
+      <div class="msg">
+          <a href="/">首页</a>
+         
+          <a href="productandservice">产品与服务</a>
+          <a href="news">新闻动态</a>
+
+          
+          <a href="contacts">联系我们</a>
+      </div>
+      
+    </div>
+    <a href="manage/index" style="position: fixed;right: 0; top: 0; color: white;" class="manager" target="blank">
       后台
     </a>
     <div class="leftcolumn">
@@ -19,7 +31,26 @@
 
 <style>
 
+.nav {
+    position:fixed;
+    left:0;
+    top:0;
+    right: 0;
+
+    background-color: #3e2d23;
+  }
   
+  .nav .msg {
+    display: flex;
+    justify-content:space-around;
+  }
+
+  .row .nav .msg a {
+    font-style: italic;
+    font-size: large;
+    color: white;
+    margin: 10px;
+  }
   /* 创建两个不相等的彼此并排的浮动列 */
   /* 左列 */
   .leftcolumn {
@@ -75,7 +106,7 @@
       flex-direction: column;
     }
 
-
+    .manager {display: none;}
 
   }
 
