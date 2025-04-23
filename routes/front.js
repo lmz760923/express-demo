@@ -110,7 +110,9 @@ router.get('/',async function(req, res) {
     email=email[0].content;
     news=await fetch_db('select content from options where name="news"');
     news=news[0].content;
-    res.render('layui/front/news.ejs',{carousel,categories,about,about_content,flowme,flowme_content,company,icp,isp,address,email,news});
+    newsitems=await fetch_db('select * from news order by name');
+    
+    res.render('layui/front/news.ejs',{carousel,categories,about,about_content,flowme,flowme_content,company,icp,isp,address,email,news,newsitems});
 
   });
 
@@ -139,9 +141,10 @@ router.get('/',async function(req, res) {
 
   });
   
-  router.post('/contact_me',upload.none(),(req,res)=>{
-	  console.log(req.body);
-	  res.json({message:'success'});
+  router.post('/contact_me',upload.none(),async (req,res)=>{
+	  let {name,email,message}=req.body;
+    let ret=await fetch_db('insert into contacts(name,email,content,created_date) values(?,?,?,now())',[name,email,message]);
+    res.json({message:'感谢您的留言，我们将尽快答复您'});
   });
 
 module.exports=router;

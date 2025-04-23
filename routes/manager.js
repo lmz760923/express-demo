@@ -197,17 +197,30 @@ router.get('/categorylist',(req,res)=>{
 });
 
 router.post('/categorydel',(req,res)=>{
-	db.query('select * from categories where id=?',[req.body.categoryid],(err,results,fields)=>{
-		if (!err){
-		fs.unlink(`${__dirname}/../uploads/${results[0].href}`,(err)=>{
-			if (!err){
-				db.query('delete from categories where id=?',[req.body.categoryid],(err,results,fields)=>{
-					res.json({msg:results});
+
+	db.query('select * from products where category=?',[req.body.categoryid],(err,results,fields)=>{
+		console.log(results);
+		if (results.length>0){
+			res.json({msg:'分类下面还有产品，不能删除'});
+			
+		}
+		else
+		{
+			db.query('select * from categories where id=?',[req.body.categoryid],(err,results,fields)=>{
+				if (!err){
+				fs.unlink(`${__dirname}/../uploads/${results[0].href}`,(err)=>{
+					if (!err){
+						db.query('delete from categories where id=?',[req.body.categoryid],(err,results,fields)=>{
+							res.json({msg:'success'});
+						});
+					}
 				});
 			}
-		});
-	}
+			});
+		}
 	});
+	
+	
 	
 });
 
@@ -341,6 +354,118 @@ router.post('/addcarousel',upload.single('file'),(req,res)=>{
 		  }
 		  else {res.json({msg:err});}
 	  });
+  });
+
+  router.get('/contacts',(req,res,next)=>{
+	if (req.session.user) {next();}
+	else {
+		res.status(401).json({message:'未登录'});
+	}
+},function(req,res){
+	  res.render('layui/manage/contacts');
+  });
+
+  router.get('/contactslist',function(req,res){
+	// 执行查询
+	db.query('SELECT * FROM contacts', (err, results, fields) => {
+	if (err) {
+	console.error('Error executing query:', err);
+	return;
+	}
+		 
+	res.json(
+	{code:'0',
+	 msg:'success',
+	 count:results.length,
+	 totalRow:{checkin:1,era:{tang:1,song:0,xian:0}},
+	 data:results
+	 }
+	);
+	});
+
+});
+
+router.post('/contactdel',function(req,res){
+	//console.log(req.body.contactid);
+	db.query('delete FROM contacts where id=?', [req.body.contactid],(err, results, fields) => {
+		if (err) {
+		console.error('Error executing query:', err);
+		return;
+		}
+			 
+		res.json(
+		{code:'0',
+		 msg:'success'
+		 
+		 }
+		);
+		});
+}
+
+);
+
+
+router.get('/news',(req,res,next)=>{
+	if (req.session.user) {next();}
+	else {
+		res.status(401).json({message:'未登录'});
+	}
+},function(req,res){
+	  res.render('layui/manage/news');
+  });
+
+  router.get('/newslist',function(req,res){
+	// 执行查询
+	db.query('SELECT * FROM news', (err, results, fields) => {
+	if (err) {
+	console.error('Error executing query:', err);
+	return;
+	}
+		 
+	res.json(
+	{code:'0',
+	 msg:'success',
+	 count:results.length,
+	 totalRow:{checkin:1,era:{tang:1,song:0,xian:0}},
+	 data:results
+	 }
+	);
+	});
+
+});
+
+router.post('/newsdel',function(req,res){
+	//console.log(req.body.contactid);
+	db.query('delete FROM news where id=?', [req.body.newsid],(err, results, fields) => {
+		if (err) {
+		console.error('Error executing query:', err);
+		return;
+		}
+			 
+		res.json(
+		{code:'0',
+		 msg:'success'
+		 
+		 }
+		);
+		});
+}
+
+);
+
+router.post('/addnews',upload.single('file'),(req,res)=>{
+	db.query('insert into news(file,href,created_at,updated_at,name,description) values(?,?,now(),now(),?,?)',[Buffer.from(req.file.originalname,'latin1').toString('utf8'),req.file.filename,req.body.name,req.body.description],(err,results)=>{
+		  
+	});
+	  res.json({
+		  message: 'uploaded success',
+		  file:{
+			  url: `/uploads/${req.file.filename}`,
+			  name: Buffer.from(req.file.originalname,'latin1').toString('utf8'),
+			  size:req.file.size,
+		  }
+	  }
+	  );
   });
 
 module.exports = router;

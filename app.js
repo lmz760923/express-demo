@@ -4,7 +4,6 @@ var session = require('express-session');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var multer=require('multer');
 var manageRouter = require('./routes/manager');
 const frontRouter=require('./routes/front');
 const fs  = require('fs');
@@ -36,7 +35,7 @@ next();
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 

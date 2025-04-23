@@ -20,8 +20,23 @@
       <p>
          <%-news%>      
       </p>
+    <div class="container">
+      <%
+    newsitems.forEach(row=>{
+    %>
+    <div class="onenews">
+    <img src="uploads/<%=row.href%>"/>
+    <div class="ellipsis-box">
+    <%-row.description%>
+    </div>
+    </div>
+    <%  
+    });
+    %>
+  </div>
     </div>
 
+    
 
  </div>
 
@@ -30,6 +45,40 @@
 
 
 <style>
+img {
+  object-fit: fill;
+  height:200px;
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+} 
+
+.ellipsis-box{
+  display: -webkit-box;
+  -webkit-line-clamp: 20;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  width: 100%;
+  height: 300px;
+  border: 1px solid #ccc;
+
+}
+
+.container {
+  background-color: :rgb(191, 238, 222);
+  padding: 20px;
+  display: grid;
+  grid-template-columns:repeat(3,1fr);
+  gap: 10px;
+
+}
+
+.onenews {
+  display: flex;
+  flex-direction: column;
+  align-items:start;
+
+}
 
 .nav {
     position:fixed;
@@ -99,6 +148,8 @@
       width: 100%;
       height: 200px;
       object-fit: fill;
+      padding-top: 5px;
+      padding-bottom: 5px;
     }
 
     .row {
@@ -107,6 +158,15 @@
     }
 
     .manager {display: none;}
+
+    .container {
+      background-color: :rgb(191, 238, 222);
+      padding: 20px;
+      display: grid;
+      grid-template-columns:repeat(1,1fr);
+      gap: 10px;
+
+}
 
   }
 
