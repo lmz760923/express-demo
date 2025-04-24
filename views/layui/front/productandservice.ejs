@@ -17,6 +17,7 @@
       后台
     </a>
     <div class="leftcolumn">
+      <div class="container">
       <%categories.forEach((item)=>{%>
         <div class="card">
           <h2>
@@ -34,7 +35,7 @@
         <%});%>
 
     </div>
-
+    </div>
     
  </div>
 
@@ -43,6 +44,29 @@
 
 
 <style>
+img {
+  object-fit: fill;
+  height:200px;
+  width: 100%;
+  padding-top: 5px;
+  padding-bottom: 5px;
+} 
+
+.container {
+  background-color: :rgb(191, 238, 222);
+  padding: 20px;
+  display: grid;
+  grid-template-columns:repeat(3,1fr);
+  gap: 10px;
+
+}
+
+.oneproduct {
+  display: flex;
+  flex-direction: column;
+  align-items:start;
+
+} 
 
 .nav {
     position:fixed;
@@ -123,6 +147,15 @@
     .manager {
       display: none;
     }
+
+    .container {
+      background-color: :rgb(191, 238, 222);
+      padding: 20px;
+      display: grid;
+      grid-template-columns:repeat(1,1fr);
+      gap: 10px;
+
+}
 
   }
 
