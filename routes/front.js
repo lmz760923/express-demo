@@ -43,24 +43,13 @@ router.get('/',async function(req, res) {
     
   });
 
-  router.get('/products/:id',(req,res)=>{
-	
-    res.render('layui/front/products',{cateid:req.params.id});
+  router.get('/products/:id',async (req,res)=>{
+	  let products=await fetch_db('select * from products where category=?',[req.params.id]);
+    let category=await fetch_db('select * from categories where id=?',[req.params.id]);
+    res.render('layui/front/products',{products,category});
+    
   });
 
-  router.get('/productdetail/:id',async (req,res)=>{
-    let results=await fetch_db('select * from products where category=?',[req.params.id]);
-    res.json(
-      {
-          code:0,
-          msg:'success',
-          count:results.length,
-          totalRow:{},
-    data:results
-      }
-  );
-
-  });
 
   router.get('/productandservice',async (req,res)=>{
     carousel=await fetch_db('select * from carousel');
