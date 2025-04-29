@@ -1,7 +1,9 @@
 <%-include('head/head')%>
 <script>
-  function registerEvents(){
+  function registerEvents(e){
+    //console.log(e);
     document.getElementById("contact").addEventListener('submit',function (ev){
+      
         let fd=new FormData(document.getElementById("contact"));
         let xhr=new XMLHttpRequest();
         xhr.open('POST','contact_me',true);
@@ -16,6 +18,7 @@
               }
         }
         xhr.send(fd);
+        document.getElementById("contact").reset();
         ev.preventDefault();
         
       }
