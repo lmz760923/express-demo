@@ -132,8 +132,14 @@ router.get('/',async function(req, res) {
   
   router.post('/contact_me',upload.none(),async (req,res)=>{
 	  let {name,email,message}=req.body;
+    try{
     let ret=await fetch_db('insert into contacts(name,email,content,created_date) values(?,?,?,now())',[name,email,message]);
     res.json({message:'感谢您的留言，我们将尽快答复您'});
+    }
+    catch(e){
+    console.log(e);
+    res.json({message:'留言未成功：'+e.sqlMessage});
+    }
   });
 
 module.exports=router;

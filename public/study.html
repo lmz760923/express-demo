@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="us">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>vue3</title>
+
+  <link rel="stylesheet" href="elementplus.css">
+  </link>
+
+  <script src="vue.global.js"></script>
+  <script src="index.iife.js"></script>
+  <script src="vue-router@4.js"></script>
+  <script src="pinia@2.js"></script>
+  <script src="elementplus.js"></script>
+  <script src="icons-vue.js"></script>
+</head>
+
+<body>
+  <script type="text/html" id="user-info">
+      <div class="user-info">
+        <h2>user information</h2>
+        <p>user name:{{name}}</p>
+        <p>user id:{{$route.params.id}}</p>
+        <p>reversedName:{{reversedName}}</p>
+        <button @click="handleUpdate">modify user</button>
+      </div>
+    </script>
+
+  <script type="text/html" id="Home">
+      <div class="home">
+        <h2>home</h2>
+        <p>welcome</p>
+      </div>
+    </script>
+
+  <script type="text/html" id="About">
+      <div class="about">
+        <h2>about me</h2>
+        <nav>
+          <router-link to="/about/user/1">user 1</router-link>
+          <router-link to="/about/user/2">user 2</router-link>
+        </nav>
+        <router-view v-slot="scope"> </router-view>
+      </div>
+    </script>
+
+  <script type="text/html" id="Display">
+      <div class="counter">
+        <h3>current:{{counter.count}}</h3>
+        <p>double:{{counter.doubleCount}}</p>
+        <div class="actions">
+          <button @click="counter.increment()">+</button>
+          <button @click="counter.decrement()">-</button>
+        </div>
+        <div class="history">
+          <h4>history:</h4>
+          <p>{{counter.formattedHistory}}</p>
+        </div>
+      </div>
+    </script>
+
+  <script type="text/html" id="DataTable">
+      <el-card class="box-card">
+        <template #header>
+          <div class="card-header">
+            <span>用户数据表格</span>
+          </div>
+        </template>
+
+        <el-table
+          :data="tableData"
+          border
+          :header-cell-style="{
+                background: '#eef1f6',
+                color: '#333',
+                fontWeight: 'bold'
+              }"
+          class="customer-table"
+          stripe
+          style="width: 100%"
+          @row-click="handleRowClick"
+        >
+          <el-table-column prop="date" label="日期" width="180" sortable>
+          </el-table-column>
+
+          <el-table-column prop="name" label="姓名" width="180">
+            <template #default="scope">
+              <el-tag type="success">{{ scope.row.name }}</el-tag>
+            </template>
+          </el-table-column>
+
+          <el-table-column prop="address" label="地址"> </el-table-column>
+
+          <el-table-column label="操作" width="120">
+            <template #default="scope">
+              <el-button size="small" @click="handleEdit(scope.$index)">
+                编辑
+              </el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-card>
+    </script>
+
+  <script type="text/html" id="mycomponent">
+
+        <el-button :icon="Search" circle />
+      
+      
+    </script>
+
+
+  <script type="text/html" id="carousel">
+      <div class="demo-collapse">
+    <el-collapse v-model="activeName" accordion>
+      <el-collapse-item title="Consistency" name="1">
+        <div>
+          Consistent with real life: in line with the process and logic of real
+          life, and comply with languages and habits that the users are used to;
+        </div>
+        <div>
+          Consistent within interface: all elements should be consistent, such
+          as: design style, icons and texts, position of elements, etc.
+        </div>
+      </el-collapse-item>
+      <el-collapse-item title="Feedback" name="2">
+        <div>
+          Operation feedback: enable the users to clearly perceive their
+          operations by style updates and interactive effects;
+        </div>
+        <div>
+          Visual feedback: reflect current state by updating or rearranging
+          elements of the page.
+        </div>
+      </el-collapse-item>
+      <el-collapse-item title="Efficiency" name="3">
+        <div>
+          Simplify the process: keep operating process simple and intuitive;
+        </div>
+        <div>
+          Definite and clear: enunciate your intentions clearly so that the
+          users can quickly understand and make decisions;
+        </div>
+        <div>
+          Easy to identify: the interface should be straightforward, which helps
+          the users to identify and frees them from memorizing and recalling.
+        </div>
+      </el-collapse-item>
+      <el-collapse-item title="Controllability" name="4">
+        <div>
+          Decision making: giving advices about operations is acceptable, but do
+          not make decisions for the users;
+        </div>
+        <div>
+          Controlled consequences: users should be granted the freedom to
+          operate, including canceling, aborting or terminating current
+          operation.
+        </div>
+      </el-collapse-item>
+    </el-collapse>
+  </div>
+    </script>
+  <script type="text/html" id="menu">
+      <el-menu
+    :default-active="activeIndex"
+    class="el-menu-demo"
+    mode="horizontal"
+    @select="handleSelect"
+  >
+    <el-menu-item index="1">Processing Center</el-menu-item>
+    <el-sub-menu index="2">
+      <template #title>Workspace</template>
+      <el-menu-item index="2-1">item one</el-menu-item>
+      <el-menu-item index="2-2">item two</el-menu-item>
+      <el-menu-item index="2-3">item three</el-menu-item>
+      <el-sub-menu index="2-4">
+        <template #title>item four</template>
+        <el-menu-item index="2-4-1">item one</el-menu-item>
+        <el-menu-item index="2-4-2">item two</el-menu-item>
+        <el-menu-item index="2-4-3">item three</el-menu-item>
+      </el-sub-menu>
+    </el-sub-menu>
+    <el-menu-item index="3" disabled>Info</el-menu-item>
+    <el-menu-item index="4">Orders</el-menu-item>
+  </el-menu>
+  <div class="h-6" />
+  <el-menu
+    :default-active="activeIndex2"
+    class="el-menu-demo"
+    mode="horizontal"
+    background-color="#545c64"
+    text-color="#fff"
+    active-text-color="#ffd04b"
+    @select="handleSelect"
+  >
+    <el-menu-item index="1">Processing Center</el-menu-item>
+    <el-sub-menu index="2">
+      <template #title>Workspace</template>
+      <el-menu-item index="2-1">item one</el-menu-item>
+      <el-menu-item index="2-2">item two</el-menu-item>
+      <el-menu-item index="2-3">item three</el-menu-item>
+      <el-sub-menu index="2-4">
+        <template #title>item four</template>
+        <el-menu-item index="2-4-1">item one</el-menu-item>
+        <el-menu-item index="2-4-2">item two</el-menu-item>
+        <el-menu-item index="2-4-3">item three</el-menu-item>
+      </el-sub-menu>
+    </el-sub-menu>
+    <el-menu-item index="3" disabled>Info</el-menu-item>
+    <el-menu-item index="4">Orders</el-menu-item>
+  </el-menu>
+    </script>
+
+  <script type="text/html" id="layout">
+        <el-container class="layout-container-demo" style="height: 500px">
+    <el-aside width="200px">
+      <el-scrollbar>
+        <el-menu :default-openeds="['1', '3']">
+          <el-sub-menu index="1">
+            <template #title>
+              <el-icon></el-icon>Navigator One
+            </template>
+            <el-menu-item-group>
+              <template #title>Group 1</template>
+              <el-menu-item index="1-1">Option 1</el-menu-item>
+              <el-menu-item index="1-2">Option 2</el-menu-item>
+            </el-menu-item-group>
+            <el-menu-item-group title="Group 2">
+              <el-menu-item index="1-3">Option 3</el-menu-item>
+            </el-menu-item-group>
+            <el-sub-menu index="1-4">
+              <template #title>Option4</template>
+              <el-menu-item index="1-4-1">Option 4-1</el-menu-item>
+            </el-sub-menu>
+          </el-sub-menu>
+          <el-sub-menu index="2">
+            <template #title>
+              <el-icon></el-icon>Navigator Two
+            </template>
+            <el-menu-item-group>
+              <template #title>Group 1</template>
+              <el-menu-item index="2-1">Option 1</el-menu-item>
+              <el-menu-item index="2-2">Option 2</el-menu-item>
+            </el-menu-item-group>
+            <el-menu-item-group title="Group 2">
+              <el-menu-item index="2-3">Option 3</el-menu-item>
+            </el-menu-item-group>
+            <el-sub-menu index="2-4">
+              <template #title>Option 4</template>
+              <el-menu-item index="2-4-1">Option 4-1</el-menu-item>
+            </el-sub-menu>
+          </el-sub-menu>
+          <el-sub-menu index="3">
+            <template #title>
+              <el-icon></el-icon>Navigator Three
+            </template>
+            <el-menu-item-group>
+              <template #title>Group 1</template>
+              <el-menu-item index="3-1">Option 1</el-menu-item>
+              <el-menu-item index="3-2">Option 2</el-menu-item>
+            </el-menu-item-group>
+            <el-menu-item-group title="Group 2">
+              <el-menu-item index="3-3">Option 3</el-menu-item>
+            </el-menu-item-group>
+            <el-sub-menu index="3-4">
+              <template #title>Option 4</template>
+              <el-menu-item index="3-4-1">Option 4-1</el-menu-item>
+            </el-sub-menu>
+          </el-sub-menu>
+        </el-menu>
+      </el-scrollbar>
+    </el-aside>
+
+    <el-container>
+      <el-header style="text-align: right; font-size: 12px">
+        <div class="toolbar">
+          <el-dropdown>
+            <el-icon style="margin-right: 8px; margin-top: 1px">
+              
+            </el-icon>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item>View</el-dropdown-item>
+                <el-dropdown-item>Add</el-dropdown-item>
+                <el-dropdown-item>Delete</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+          <span>Tom</span>
+        </div>
+      </el-header>
+
+      <el-main>
+        <el-scrollbar>
+          <el-table :data="tableData">
+            <el-table-column prop="date" label="Date" width="140" />
+            <el-table-column prop="name" label="Name" width="120" />
+            <el-table-column prop="address" label="Address" />
+          </el-table>
+        </el-scrollbar>
+      </el-main>
+    </el-container>
+  </el-container>
+    </script>
+
+  <div id="app" style="text-align: center">
+    <nav>
+      <router-link to="/">home</router-link>|
+      <router-link to="/about">about</router-link>|
+      <router-link to="/display">display</router-link>|
+      <router-link to="/user/1">user 1</router-link>|
+      <router-link to="/user/2">user 2</router-link>|
+      <router-link to="/table">table</router-link>|
+      <router-link to="/mycomponent">button</router-link>|
+      <router-link to="/carousel">carousel</router-link>|
+      <router-link to="/menu">menu</router-link>
+      <router-link to="/layout">layout</router-link>
+    </nav>
+    <div style="
+          position: relative;
+          left: 50%;
+          transform: translateX(-50%);
+          border: 1px solid red;
+          width: 90%;
+        ">
+      <router-view v-slot="scope">
+        <transition name="fade" mode="out-in">
+          <div>
+            <component :is="scope.Component"></component>
+          </div>
+        </transition>
+      </router-view>
+    </div>
+  </div>
+  <script type="text/javascript">
+    const useCounterStore = Pinia.defineStore("counter", {
+      state: () => ({
+        count: 0,
+        history: [],
+      }),
+      actions: {
+        increment() {
+          this.count++;
+          this.history.push(`add to ${this.count}`);
+        },
+        decrement() {
+          this.count--;
+          this.history.push(`sub to ${this.count}`);
+        },
+      },
+      getters: {
+        doubleCount: (state) => state.count * 2,
+        formattedHistory: (state) => state.history.join("->"),
+      },
+    });
+
+    const UserInfo = {
+      template: "#user-info",
+
+      props: ["id", "name"],
+
+      emits: ["update-name"],
+
+      computed: {
+        reversedName() {
+          return this.reversedName;
+        },
+      },
+
+      methods: {
+        handleUpdate() {
+          const newName = prompt("input new name", this.name);
+          if (newName) {
+            this.$emit("update-name", newName);
+          }
+        },
+      },
+      mounted() {
+        console.log("recieve id:", this.$route.params.id);
+      },
+    };
+
+    Home = {
+      template: "#Home",
+    };
+
+    const About = {
+      template: "#About",
+    };
+
+    const CounterDisplay = {
+      template: "#Display",
+      setup() {
+        return {
+          counter: useCounterStore(),
+        };
+      },
+    };
+
+    const DataTable = {
+      template: "#DataTable",
+      setup() {
+        return {
+          tableData: [
+            {
+              date: "2016-05-03",
+              name: "王小虎",
+              address: "上海市普陀区金沙江路 1518 弄",
+            },
+            {
+              date: "2016-05-02",
+              name: "王小明",
+              address: "北京市海淀区西二旗",
+            },
+            {
+              date: "2016-05-04",
+              name: "李小红",
+              address: "深圳市南山区科技园",
+            },
+          ],
+        };
+      },
+      methods: {
+        handleEdit(index) {
+          alert(`编辑第 ${index + 1} 行数据`);
+        },
+        handleRowClick(row) {
+          formdata = new FormData();
+          //formdata.append('name','lmz');
+          formdata.append("email", "email");
+          formdata.append("message", "message");
+          console.log("点击行数据:", row);
+          window
+            .fetch("/contact_me", {
+              method: "POST",
+              body: formdata,
+            })
+            .then((res) => {
+              return res.json();
+            })
+            .then((res) => {
+              alert(res.message);
+            });
+        },
+      },
+      mounted() {
+        console.log("table loaded");
+      },
+    };
+
+    const mycomponent = {
+      template: "#mycomponent",
+      setup() {
+        let { Search } = ElementPlusIconsVue
+        return { Search }
+      },
+      mounted() { console.log(ElementPlusIconsVue) },
+    };
+
+    const carousel = {
+      template: "#carousel",
+      setup() {
+        const activeName = Vue.ref('1')
+        return { activeName }
+      },
+      mounted() { }
+    }
+
+    const menu = {
+      template: '#menu',
+      setup() {
+        const activeIndex = Vue.ref('1')
+        const activeIndex2 = Vue.ref('1')
+        const handleSelect = (key, keyPath) => {
+          console.log(key, keyPath)
+        }
+        return { activeIndex, activeIndex2, handleSelect }
+      }
+    }
+
+    const layout = {
+      template: '#layout',
+      setup() {
+        const { ref } = Vue
+        const { Menu, Message, Setting } = ElementPlusIconsVue
+
+        const item = {
+          date: '2016-05-02',
+          name: 'Tom',
+          address: 'No. 189, Grove St, Los Angeles',
+        }
+        const tableData = ref(Array.from({ length: 20 }).fill(item))
+        return {
+          item, tableData, Menu, Message, Setting
+        }
+      },
+      
+    }
+
+    const router = VueRouter.createRouter({
+      history: VueRouter.createWebHashHistory(),
+      routes: [
+        { path: "/", component: Home },
+        { path: "/home", redirect: "/" },
+        { path: "/display", component: CounterDisplay },
+        {
+          path: "/about",
+          component: About,
+          children: [
+            {
+              path: "user/:id",
+              component: UserInfo,
+              props: true,
+            },
+          ],
+        },
+        {
+          path: "/user",
+          compoent: About,
+          children: [
+            {
+              path: ":id",
+              component: UserInfo,
+              props: true,
+            },
+          ],
+        },
+        { path: "/table", component: DataTable },
+        { path: "/mycomponent", component: mycomponent },
+        { path: "/carousel", component: carousel },
+        { path: "/menu", component: menu },
+        { path: "/layout", component: layout },
+        {
+          path: "/:pathMatch(.*)*",
+          compoent: { template: `<h3>404 page not exits</h3>` },
+        },
+      ],
+    });
+
+    const app = Vue.createApp({});
+    app.use(router);
+    app.use(Pinia.createPinia());
+    app.use(ElementPlus);
+    
+    app.mount("#app");
+  </script>
+
+  <style>
+    .router-link-active {
+      color: red;
+      font-weight: bold;
+    }
+
+    nav {
+      padding: 20px;
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity 0.3s;
+    }
+
+    .fade-enter-from,
+    .fade-leave-to {
+      opacity: 0;
+    }
+
+    .customer-table {
+      border: 1px solid rebeccapurple !important;
+    }
+
+    .customer-table .el-table__row:hover td {
+      background: #f0f9eb !important;
+    }
+
+    .layout-container-demo .el-header {
+      position: relative;
+      background-color: var(--el-color-primary-light-7);
+      color: var(--el-text-color-primary);
+    }
+
+    .layout-container-demo .el-aside {
+      color: var(--el-text-color-primary);
+      background: var(--el-color-primary-light-8);
+    }
+
+    .layout-container-demo .el-menu {
+      border-right: none;
+    }
+
+    .layout-container-demo .el-main {
+      padding: 0;
+    }
+
+    .layout-container-demo .toolbar {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      right: 20px;
+    }
+  </style>
+</body>
+
+</html>
