@@ -216,13 +216,13 @@
     </script>
 
   <script type="text/html" id="layout">
-        <el-container class="layout-container-demo" style="height: 500px">
+      <el-container class="layout-container-demo" style="height: 500px">
     <el-aside width="200px">
       <el-scrollbar>
         <el-menu :default-openeds="['1', '3']">
           <el-sub-menu index="1">
             <template #title>
-              <el-icon></el-icon>Navigator One
+              <el-icon><message /></el-icon>Navigator One
             </template>
             <el-menu-item-group>
               <template #title>Group 1</template>
@@ -239,7 +239,7 @@
           </el-sub-menu>
           <el-sub-menu index="2">
             <template #title>
-              <el-icon></el-icon>Navigator Two
+              <el-icon><Menu /></el-icon>Navigator Two
             </template>
             <el-menu-item-group>
               <template #title>Group 1</template>
@@ -256,7 +256,7 @@
           </el-sub-menu>
           <el-sub-menu index="3">
             <template #title>
-              <el-icon></el-icon>Navigator Three
+              <el-icon><setting /></el-icon>Navigator Three
             </template>
             <el-menu-item-group>
               <template #title>Group 1</template>
@@ -280,7 +280,7 @@
         <div class="toolbar">
           <el-dropdown>
             <el-icon style="margin-right: 8px; margin-top: 1px">
-              
+              <setting />
             </el-icon>
             <template #dropdown>
               <el-dropdown-menu>
@@ -305,7 +305,7 @@
       </el-main>
     </el-container>
   </el-container>
-    </script>
+  </script>
 
   <div id="app" style="text-align: center">
     <nav>
@@ -485,19 +485,23 @@
     const layout = {
       template: '#layout',
       setup() {
-        const { ref } = Vue
-        const { Menu, Message, Setting } = ElementPlusIconsVue
+      const { ref } = Vue
+      
+      
 
-        const item = {
+      const item = {
           date: '2016-05-02',
           name: 'Tom',
           address: 'No. 189, Grove St, Los Angeles',
         }
         const tableData = ref(Array.from({ length: 20 }).fill(item))
         return {
-          item, tableData, Menu, Message, Setting
+          item, tableData
         }
       },
+      
+      components:{Menu:ElementPlusIconsVue.Menu,Message:ElementPlusIconsVue.Message,Setting:ElementPlusIconsVue.Setting}
+      
       
     }
 
@@ -545,7 +549,10 @@
     app.use(router);
     app.use(Pinia.createPinia());
     app.use(ElementPlus);
-    
+    //const { Menu, Message, Setting,} = ElementPlusIconsVue
+    //app.component('Menu',Menu)
+    //app.component('Message',Message)
+    //app.component('Setting',Setting)
     app.mount("#app");
   </script>
 
