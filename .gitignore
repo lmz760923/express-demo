@@ -2,4 +2,8 @@
 node_tmp/
 node_modules/
 npm-debug.log.*
+uploads
+nohup
+nohup.out
+.vscode
 
