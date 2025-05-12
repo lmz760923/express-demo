@@ -307,7 +307,51 @@
   </el-container>
   </script>
 
-  <div id="app" style="text-align: center">
+  <script type="text/html" id="pinia1">
+    <el-card style="width:400xp;margin:20px">
+      <template #header>
+        <div>shopping1:{{cart.items.length}}</div>
+      </template>
+      <el-button type="success" @click="cart.addItem('sp:'+cart.items.length+1)">
+        add
+      </el-button>
+      <el-divider></el-divider>
+      <ul>
+        <li v-for="(item,index) in cart.items" :key="index">
+          {{item}}
+          <el-button size="small" type="danger" @click="cart.removeItem(index)">
+            delete
+          </el-button>
+
+        </li>
+      </ul>
+    </el-card>
+  </script>
+
+  <script type="text/html" id="pinia">
+    <el-card style="width:400xp;margin:20px">
+      <template #header>
+        <div>shopping:{{cart.items.length}}</div>
+      </template>
+      <el-button type="success" @click="cart.addItem('sp:'+cart.items.length+1)">
+        add
+      </el-button>
+      <el-divider></el-divider>
+      <ul>
+        <li v-for="(item,index) in cart.items" :key="index">
+          {{item}}
+          <el-button size="small" type="danger" @click="cart.removeItem(index)">
+            delete
+          </el-button>
+
+        </li>
+      </ul>
+    </el-card>
+    <cartbuy1/>
+  </script>
+
+  <script type="text/html" id="root">
+    <div style="text-align: center">
     <nav>
       <router-link to="/">home</router-link>|
       <router-link to="/about">about</router-link>|
@@ -317,8 +361,9 @@
       <router-link to="/table">table</router-link>|
       <router-link to="/mycomponent">button</router-link>|
       <router-link to="/carousel">carousel</router-link>|
-      <router-link to="/menu">menu</router-link>
-      <router-link to="/layout">layout</router-link>
+      <router-link to="/menu">menu</router-link>|
+      <router-link to="/layout">layout</router-link>|
+      <router-link to="/cartbuy">cartbuy</router-link>
     </nav>
     <div style="
           position: relative;
@@ -335,7 +380,13 @@
         </transition>
       </router-view>
     </div>
-  </div>
+    </div>
+  </script>
+  
+
+
+  <div id="app"></div>
+
   <script type="text/javascript">
     const useCounterStore = Pinia.defineStore("counter", {
       state: () => ({
@@ -456,9 +507,10 @@
       template: "#mycomponent",
       setup() {
         let { Search } = ElementPlusIconsVue
+        Vue.onMounted(()=>{ console.log(ElementPlusIconsVue);}) 
         return { Search }
       },
-      mounted() { console.log(ElementPlusIconsVue) },
+      
     };
 
     const carousel = {
@@ -495,6 +547,7 @@
           address: 'No. 189, Grove St, Los Angeles',
         }
         const tableData = ref(Array.from({ length: 20 }).fill(item))
+        Vue.onMounted(()=>{console.log('onMounted')})
         return {
           item, tableData
         }
@@ -502,6 +555,30 @@
       
       components:{Menu:ElementPlusIconsVue.Menu,Message:ElementPlusIconsVue.Message,Setting:ElementPlusIconsVue.Setting}
       
+      
+    }
+
+    const cartbuy1={
+      template: '#pinia1',
+      setup(){
+        
+        const cart=useCartStore()
+        return {cart}
+      }
+    }
+
+    const cartbuy={
+      template: '#pinia',
+      setup(){
+        
+        const cart=useCartStore()
+        return {cart}
+      },
+      components:{cartbuy1}
+    }
+
+    const root={
+      template:'#root',
       
     }
 
@@ -538,6 +615,7 @@
         { path: "/carousel", component: carousel },
         { path: "/menu", component: menu },
         { path: "/layout", component: layout },
+        { path: "/cartbuy",component: cartbuy},
         {
           path: "/:pathMatch(.*)*",
           compoent: { template: `<h3>404 page not exits</h3>` },
@@ -545,7 +623,17 @@
       ],
     });
 
-    const app = Vue.createApp({});
+    const useCartStore=Pinia.defineStore(
+      'cart',{
+        state:()=>({items:[]}),
+        actions: {
+          addItem(item){this.items.push(item)},
+          removeItem(index){this.items.splice(index,1)},
+        },
+      }
+    )
+    
+    const app = Vue.createApp(root);
     app.use(router);
     app.use(Pinia.createPinia());
     app.use(ElementPlus);
